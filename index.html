@@ -190,25 +190,18 @@ p {
   margin-right: auto;
   padding: 0 20px;
   padding-bottom: 16px;
-  -webkit-overflow-scrolling: touch;
 }
 
 #event-track {
   display: flex;
-  gap: 14px;
+  gap: 0;
   transition: transform 0.4s ease;
   padding: 0;
   scroll-snap-type: x mandatory;
-  cursor: grab;
-  will-change: transform;
-}
-
-#event-track:active {
-  cursor: grabbing;
 }
 
 .event-card {
-  min-width: calc(90% - 14px);
+  min-width: calc(100% - 14px);
   flex-direction: column;
   align-items: flex-start;
   background: var(--card-bg);
@@ -219,7 +212,6 @@ p {
   overflow: hidden;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  user-select: none;
 }
 
 .event-card img {
@@ -820,26 +812,34 @@ const slider = document.getElementById('event-slider');
 let isDragging = false;
 let startX = 0;
 let currentX = 0;
+let velocity = 0;
 let lastX = 0;
+let lastTime = 0;
 
 function dragStart(e) {
   isDragging = true;
-  const xPos = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+  const xPos = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
   startX = xPos - currentX;
   lastX = xPos;
+  lastTime = Date.now();
   track.style.transition = 'none';
-  track.style.cursor = 'grabbing';
 }
 
 function dragMove(e) {
   if (!isDragging) return;
   
-  e.preventDefault();
-  const xPos = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+  const xPos = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
   currentX = xPos - startX;
   
   const maxScroll = track.scrollWidth - slider.offsetWidth;
   currentX = Math.min(0, Math.max(currentX, -maxScroll));
+  
+  const now = Date.now();
+  const dt = Math.max(16, now - lastTime);
+  velocity = (xPos - lastX) / dt;
+  
+  lastX = xPos;
+  lastTime = now;
   
   track.style.transform = `translateX(${currentX}px)`;
 }
@@ -848,12 +848,11 @@ function dragEnd() {
   if (!isDragging) return;
   isDragging = false;
   
-  track.style.cursor = 'grab';
   track.style.transition = 'transform 0.4s ease';
   
-  // Calculate snap position - each card is 90% of slider width
-  const cardSnapWidth = slider.offsetWidth * 0.9;
-  const snapPosition = -Math.round(Math.abs(currentX) / cardSnapWidth) * cardSnapWidth;
+  // Calculate snap position to nearest card
+  const cardWidth = track.querySelector('.event-card').offsetWidth + 14;
+  const snapPosition = -Math.round(Math.abs(currentX) / cardWidth) * cardWidth;
   
   const maxScroll = track.scrollWidth - slider.offsetWidth;
   currentX = Math.max(-maxScroll, Math.min(snapPosition, 0));
@@ -862,15 +861,14 @@ function dragEnd() {
 }
 
 // Event listeners
-track.addEventListener('mousedown', dragStart, false);
-document.addEventListener('mousemove', dragMove, false);
-document.addEventListener('mouseup', dragEnd, false);
-track.addEventListener('mouseleave', dragEnd, false);
+track.addEventListener('mousedown', dragStart);
+document.addEventListener('mousemove', dragMove);
+document.addEventListener('mouseup', dragEnd);
+track.addEventListener('mouseleave', dragEnd);
 
-track.addEventListener('touchstart', dragStart, { passive: true });
-document.addEventListener('touchmove', dragMove, { passive: false });
-document.addEventListener('touchend', dragEnd, false);
-track.addEventListener('touchcancel', dragEnd, false);
+track.addEventListener('touchstart', dragStart);
+document.addEventListener('touchmove', dragMove, { passive: true });
+document.addEventListener('touchend', dragEnd);
 
 // Prevent text selection during drag
 track.addEventListener('selectstart', (e) => {
