@@ -873,13 +873,32 @@ function dragEnd() {
   
   track.style.transition = 'transform 0.4s ease';
   
-  // Calculate snap position to nearest card
+  // Calculate snap position with lower drag threshold and velocity (flick) support
   const cardWidth = track.querySelector('.event-card').offsetWidth + 14;
-  const snapPosition = -Math.round(Math.abs(currentX) / cardWidth) * cardWidth;
-  
   const maxScroll = track.scrollWidth - slider.offsetWidth;
+
+  // Sensitivity: fraction of card width required to switch (lower = easier to switch)
+  const sensitivity = 0.28; // ~28% of card width
+
+  // Determine index based on position and quick swipe velocity
+  const absPos = Math.abs(currentX);
+  let index = Math.floor(absPos / cardWidth);
+
+  // If dragged past sensitivity threshold, advance to next
+  if ((absPos % cardWidth) / cardWidth > sensitivity) index = Math.ceil(absPos / cardWidth);
+
+  // Use velocity for flick detection (quick swipes)
+  if (Math.abs(velocity) > 0.25) {
+    if (velocity < 0) { // swiped left quickly -> go next
+      index = Math.ceil(absPos / cardWidth);
+    } else { // swiped right quickly -> go previous
+      index = Math.floor(absPos / cardWidth);
+    }
+  }
+
+  const snapPosition = -Math.min(index * cardWidth, maxScroll);
   currentX = Math.max(-maxScroll, Math.min(snapPosition, 0));
-  
+
   track.style.transform = `translateX(${currentX}px)`;
 }
 
