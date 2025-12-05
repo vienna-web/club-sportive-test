@@ -1,0 +1,1304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Este Essaouira Sports Club</title>
+
+<style>
+/* =========================
+   ROOT VARIABLES & COLORS
+   ========================= */
+:root {
+  --blue:#0b63a7;
+  --orange:#ff7a2d;
+  --dark-blue:#062036;
+  --bg:#ffffff;
+  --text:#062036;
+  --card-bg:#f3f3f3;
+  --card-shadow:0 6px 18px rgba(11,99,167,0.12);
+  --card-shadow-hover:0 12px 28px rgba(11,99,167,0.18);
+  font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:#0d0d0d;
+    --text:#f1f1f1;
+    --card-bg:#1c1c1c;
+  }
+}
+
+/* =========================
+   BODY
+   ========================= */
+body {
+  margin:0;
+  padding:0;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+  text-align:center;
+  font-size:16px;
+  overflow-x: hidden;
+}
+
+/* =========================
+   TOP LOGOS SECTION
+   ========================= */
+.top-logos-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: linear-gradient(135deg, rgba(11,99,167,0.05), rgba(255,122,45,0.05));
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.top-logo1, .top-logo2 {
+  flex: 1;
+  min-width: 100px;
+  max-width: 140px;
+  animation: slideInScale 0.8s ease-out;
+}
+
+.top-logo1 img, .top-logo2 img {
+  width: 100%;
+  height: auto;
+  max-width: 130px;
+  object-fit: contain;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 2px 8px rgba(11,99,167,0.15));
+}
+
+.top-logo1:hover img, .top-logo2:hover img {
+  transform: scale(1.08) translateY(-3px);
+  filter: drop-shadow(0 4px 12px rgba(11,99,167,0.25));
+}
+
+@keyframes slideInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* =========================
+   HERO SECTION
+   ========================= */
+.hero {
+  height:550px;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  background-size:cover;
+  background-position:center;
+  margin-bottom:60px;
+  border-radius:0;
+  animation: heroSlide 1s ease-out;
+}
+
+.hero.bg-local {
+  background-image:url('este.jpg');
+}
+
+.hero .overlay {
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg, rgba(11,99,167,0.7), rgba(255,122,45,0.5));
+  animation: overlayPulse 3s ease-in-out infinite;
+}
+
+.hero-content {
+  position:relative;
+  z-index:2;
+  text-align:center;
+}
+
+.hero h1 {
+  font-size:56px;
+  margin:0 0 20px 0;
+  text-align:center;
+  text-transform:uppercase;
+  letter-spacing:3px;
+  font-weight:700;
+  text-shadow:2px 2px 8px rgba(0,0,0,0.4);
+  animation: titleGlow 1.2s ease-out;
+}
+
+.hero p {
+  font-size:20px;
+  margin:0;
+  color:rgba(255,255,255,0.95);
+  text-shadow:1px 1px 4px rgba(0,0,0,0.3);
+  animation: fadeIn 1.5s ease-out;
+}
+
+@keyframes heroSlide {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes overlayPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.95; }
+}
+
+@keyframes titleGlow {
+  from {
+    opacity: 0;
+    text-shadow: 0 0 20px rgba(255,122,45,0.8);
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* =========================
+   SECTION HEADINGS
+   ========================= */
+h2 {
+  font-size:36px;
+  color:var(--blue);
+  margin:40px 0 30px 0;
+  text-align:left;
+  font-weight:700;
+  border-bottom:3px solid var(--orange);
+  padding-bottom:15px;
+  animation: slideInLeft 0.6s ease-out;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+h3 {
+  margin-top:28px;
+  margin-bottom: 24px;
+  color:var(--blue);
+  font-size:28px;
+  font-weight:600;
+  animation: fadeIn 0.6s ease-out;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+p {
+  color:#375b7a;
+  line-height:1.8;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* =========================
+   EVENTS SLIDER
+   ========================= */
+#event-slider {
+  position: relative;
+  overflow: hidden;
+  margin-top: 12px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+  padding-bottom: 30px;
+}
+
+#event-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  padding: 10px 0;
+}
+
+.event-card {
+  min-width: 320px;
+  flex-direction: column;
+  align-items: flex-start;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  padding: 16px;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+  animation: slideUpFade 0.6s ease-out forwards;
+}
+
+.event-card:nth-child(1) { animation-delay: 0.1s; }
+.event-card:nth-child(2) { animation-delay: 0.2s; }
+.event-card:nth-child(3) { animation-delay: 0.3s; }
+.event-card:nth-child(4) { animation-delay: 0.4s; }
+
+.event-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.event-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.event-card:hover::before {
+  left: 100%;
+}
+
+.event-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  margin-bottom: 12px;
+}
+
+.event-card:hover img {
+  transform: scale(1.05);
+}
+
+.event-card h4 {
+  font-size: 18px;
+  margin: 8px 0;
+  color: var(--blue);
+}
+
+.event-card p {
+  font-size: 14px;
+  margin: 6px 0;
+  color: #375b7a;
+}
+
+.event-card button, .event-card a {
+  margin-top: 8px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.event-card button {
+  background: var(--blue);
+  color: #fff;
+}
+
+.event-card button:hover {
+  background: var(--dark-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(11,99,167,0.25);
+}
+
+.event-card a {
+  background: var(--orange);
+  color: #fff;
+}
+
+.event-card a:hover {
+  background: #ff6810;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255,122,45,0.25);
+}
+
+.event-card .status {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 12px;
+  color: white;
+  background: var(--orange);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  animation: statusBounce 0.6s ease-out;
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes statusBounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-90deg);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, var(--blue), #0a4d80);
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 22px;
+  z-index: 10;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 4px 12px rgba(11,99,167,0.2);
+  font-weight: bold;
+}
+
+.slider-btn:hover {
+  background: linear-gradient(135deg, #0a4d80, var(--blue));
+  transform: translateY(-50%) scale(1.12);
+  box-shadow: 0 8px 20px rgba(11,99,167,0.35);
+}
+
+.slider-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+#slide-left {
+  left: 10px;
+}
+
+#slide-right {
+  right: 10px;
+}
+
+@media(max-width: 768px) {
+  .slider-btn {
+    display: none;
+  }
+  .event-card {
+    min-width: 280px;
+  }
+}
+
+
+/* =========================
+   AI WEBSITE LINK SECTION
+   ========================= */
+.ai-site-section {
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(
+    120deg,
+    rgba(11,99,167,0.08),
+    rgba(255,122,45,0.08)
+  );
+  margin-top: 60px;
+}
+
+.ai-site-box {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 48px 40px;
+  max-width: 750px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--card-shadow-hover);
+  animation: scaleUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid rgba(11,99,167,0.1);
+}
+
+.ai-site-logos {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.ai-site-logos img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  animation: float 3s ease-in-out infinite;
+}
+
+.ai-site-logos img:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.ai-site-logos img:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.ai-site-logos img:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.ai-site-box h2 {
+  color: var(--blue);
+  margin-bottom: 16px;
+  border-bottom: none;
+  padding-bottom: 0;
+  animation: none;
+}
+
+.ai-site-box p {
+  color: #375b7a;
+  font-size: 16px;
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+
+.ai-site-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--orange), #ff6810);
+  color: white;
+  padding: 14px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 6px 16px rgba(255,122,45,0.25);
+  border: 2px solid transparent;
+}
+
+.ai-site-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(255,122,45,0.4);
+  background: linear-gradient(135deg, #ff6810, var(--orange));
+}
+
+.ai-site-btn:active {
+  transform: translateY(-2px);
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================
+   MODAL
+   ========================= */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeInOverlay 0.3s ease;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  padding: 32px;
+  border-radius: 12px;
+  max-width: 480px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  animation: modalBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  text-align: center;
+  animation: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.modal-content p {
+  text-align: center;
+  margin: 16px 0 24px 0;
+}
+
+.modal-content button {
+  margin-top: 12px;
+  background: linear-gradient(135deg, var(--orange), #ff6810);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.modal-content button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255,122,45,0.25);
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalBounce {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* =========================
+   RESERVATION
+   ========================= */
+.reserve {
+  padding: 24px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff, #f7fbff);
+  border: 1px solid #e6f0fb;
+  margin-top: 16px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: slideUpFade 0.6s ease-out 0.2s both;
+}
+
+.reserve p {
+  text-align: left;
+  margin: 0 0 16px 0;
+  padding: 0 20px;
+}
+
+.reserve iframe {
+  width: 100%;
+  height: 500px;
+  border: 0;
+  border-radius: 8px;
+  filter: brightness(0.97);
+  box-shadow: 0 4px 12px rgba(11,99,167,0.1);
+}
+
+.reserve-status {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* =========================
+   STATUS CARDS
+   ========================= */
+.status-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  text-align: left;
+  transition: all 0.3s ease;
+  animation: slideUpFade 0.6s ease-out forwards;
+  border-left: 4px solid var(--orange);
+}
+
+.status-card:nth-child(1) { animation-delay: 0.3s; }
+.status-card:nth-child(2) { animation-delay: 0.4s; }
+.status-card:nth-child(3) { animation-delay: 0.5s; }
+
+.status-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+  border-left-color: var(--blue);
+}
+
+.status-card h4 {
+  margin: 0 0 12px 0;
+  color: var(--blue);
+  font-size: 18px;
+}
+
+.status-card p {
+  margin: 6px 0;
+  color: #375b7a;
+  font-size: 14px;
+}
+
+.status-card strong {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+@media(max-width:900px) {
+  .grid.cols-3 {
+    grid-template-columns: repeat(2,1fr);
+  }
+  h2, h3 {
+    font-size: 24px;
+  }
+  .top-logos-container {
+    padding: 15px 20px;
+    gap: 15px;
+  }
+}
+
+@media(max-width:600px) {
+  .grid.cols-3 {
+    grid-template-columns: 1fr;
+  }
+  .hero {
+    height: 320px;
+  }
+  .hero h1 {
+    font-size: 36px;
+    letter-spacing: 1px;
+  }
+  .hero p {
+    font-size: 16px;
+  }
+  .top-logos-container {
+    padding: 12px 16px;
+  }
+  .top-logo1, .top-logo2 {
+    max-width: 100px;
+  }
+  .event-card {
+    min-width: 100%;
+  }
+  .reserve iframe {
+    height: 350px;
+  }
+  #event-slider {
+    padding: 0 10px;
+  }
+  .reserve-status {
+    grid-template-columns: 1fr;
+  }
+  .ai-site-box {
+    padding: 32px 20px;
+  }
+  .ai-site-logos {
+    gap: 20px;
+  }
+  .ai-site-logos img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media(max-width:768px) {
+  .member-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .slider-btn {
+    display: none;
+  }
+}
+
+/* =========================
+   FOOTER
+========================= */
+.site-footer {
+  background: linear-gradient(135deg, rgba(11,99,167,0.6), rgba(255,122,45,0.3));
+  color: #ffffff;
+  padding: 40px 20px;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.8;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.1);
+  margin-top: 60px;
+  animation: slideUpFade 0.6s ease-out 0.6s both;
+}
+
+.site-footer .footer-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.site-footer p {
+  margin: 10px 0;
+  color: rgba(255,255,255,0.95);
+}
+
+.site-footer a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  margin: 0 6px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.site-footer a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--orange);
+  transition: width 0.3s ease;
+}
+
+.site-footer a:hover {
+  text-decoration: none;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.site-footer a:hover::after {
+  width: 100%;
+}
+
+@media(max-width:600px) {
+  .site-footer {
+    font-size: 13px;
+    padding: 30px 16px;
+  }
+  .site-footer p {
+    margin: 8px 0;
+  }
+}
+
+
+</style>
+</head>
+<body>
+
+<!-- =========================
+     TOP LOGOS (SCHOOL + CLUB)
+     ========================= -->
+<div class="top-logos-container">
+  <div class="top-logo1">
+    <img src="est.png.png" alt="School Logo" />
+  </div>
+  <div class="top-logo2"> 
+    <img src="club.png" alt="Club Logo" />
+  </div>
+</div>
+
+<main>
+
+<!-- =========================
+     HERO SECTION
+     ========================= -->
+<div class="hero bg-local">
+  <div class="overlay"></div>
+  <h1>club sportif este</h1>
+</div>
+
+<!-- =========================
+     EVENTS
+     ========================= -->
+<h3>Upcoming Events</h3>
+<div id="event-slider">
+  <div id="event-track">
+    <!-- Event Card 1 -->
+    <div class="event-card" data-date="2025-05-10">
+      <img src="images/event1.jpg" alt="Event 1" />
+      <h4>pas d'événement</h4>
+      <p><strong>Date:</strong> 10 May 2025</p>
+      <p><strong>Time:</strong> 14:00</p>
+      <p><strong>Place:</strong> Football Field</p>
+      <button class="open-modal" data-target="modal1">Details</button>
+      <a href="https://docs.google.com/forms/d/YOUR_FORM_ID/viewform" target="_blank">Register</a>
+    </div>
+
+    <!-- Event Card 2 -->
+    <div class="event-card" data-date="2025-05-12">
+      <img src="images/event2.jpg" alt="Event 2" />
+      <h4>pas d'événement</h4>
+      <p><strong>Date:</strong> 12 May 2025</p>
+      <p><strong>Time:</strong> 16:00</p>
+      <p><strong>Place:</strong> Basketball Court</p>
+      <button class="open-modal" data-target="modal2">Details</button>
+      <a href="https://docs.google.com/forms/d/YOUR_FORM_ID/viewform" target="_blank">Register</a>
+    </div>
+
+    <!-- Event Card 3 -->
+    <div class="event-card" data-date="2026-05-15">
+      <img src="images/event3.jpg" alt="Event 3" />
+      <h4>pas d'événement</h4>
+      <p><strong>Date:</strong> 15 May 2025</p>
+      <p><strong>Time:</strong> 18:00</p>
+      <p><strong>Place:</strong> Volleyball Court</p>
+      <button class="open-modal" data-target="modal3">Details</button>
+      <a href="https://docs.google.com/forms/d/YOUR_FORM_ID/viewform" target="_blank">Register</a>
+    </div>
+
+    <!-- Event Card 4 -->
+    <div class="event-card" data-date="2026-05-15">
+      <img src="images/event4.jpg" alt="Event 4" />
+      <h4>pas d'événement</h4>
+      <p><strong>Date:</strong> 15 May 2025</p>
+      <p><strong>Time:</strong> 18:00</p>
+      <p><strong>Place:</strong> Volleyball Court</p>
+      <button class="open-modal" data-target="modal4">Details</button>
+      <a href="https://docs.google.com/forms/d/YOUR_FORM_ID/viewform" target="_blank">Register</a>
+    </div>
+
+    <!-- Add more cards here -->
+  </div>
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h3>pas d'événement  — Details</h3>
+    <p>event discription will be here event 1.</p>
+    <button class="close-modal">Close</button>
+  </div>
+</div>
+
+<div id="modal2" class="modal">
+  <div class="modal-content">
+    <h3>pas d'événement  — Details</h3>
+    <p>event  discription will be here event 2.</p>
+    <button class="close-modal">Close</button>
+  </div>
+</div>
+
+<div id="modal3" class="modal">
+  <div class="modal-content">
+    <h3>pas d'événement — Details</h3>
+    <p>event  discription will be here event 3.</p>
+    <button class="close-modal">Close</button>
+  </div>
+</div>
+
+  </div>
+<div id="modal4" class="modal">
+  <div class="modal-content">
+    <h3>pas d'événements — Details</h3>
+    <p>event discription will be here event 1.</p>
+    <button class="close-modal">Close</button>
+  </div>
+</div>
+
+
+
+
+  <!-- Slider Buttons -->
+  <button id="slide-left" class="slider-btn">❮</button>
+  <button id="slide-right" class="slider-btn">❯</button>
+</div>
+
+<!-- =========================
+     AI FITNESS WEBSITE LINK
+     ========================= -->
+<section class="ai-site-section">
+  <div class="ai-site-box">
+
+    <div class="ai-site-logos">
+      <img src="est.png.png" alt="School Logo">
+      <img src="club.png" alt="Club Logo">
+    </div>
+
+    <h2> Fitness & Performance Analyzer</h2>
+    <p>
+      Analysez votre condition physique, votre masse musculaire et vos performances
+      sportives grâce à notre nouvelle plateforme intelligente.
+    </p>
+
+    <a href=" https://vienna-web.github.io/health/" class="ai-site-btn" target="_blank">
+      Analysez votre performance →
+    </a>
+
+  </div>
+</section>
+
+<!-- =========================
+     RESERVATIONS
+     ========================= -->
+
+     
+<h3>reservation terrain de foot ⚽</h3>
+<div class="reserve">
+  <p>To reserve the football field, please fill the form below.</p>
+  <iframe src="https://calendar.app.google/hKMrFjJmRrgZRji56"></iframe>
+</div>
+
+<h3>Reservation Status</h3>
+<div class="reserve-status">
+  <div class="status-card">
+    <h4>Football Field ⚽</h4>
+    <p>Status: <strong>Available</strong></p>
+  </div>
+
+  <div class="status-card">
+    <h4>Basketball Court 🏀</h4>
+    <p>Status: <strong>Not available</strong></p>
+    <p>Expected availability: TBD</p>
+  </div>
+
+  <div class="status-card">
+    <h4>Volleyball Court 🏐</h4>
+    <p>Status: <strong>Not available</strong></p>
+    <p>Expected availability: TBD</p>
+  </div>
+</div>
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h3>Event Name 1 — Details</h3>
+    <p>More details about Event 1 here.</p>
+    <button class="close-modal">Close</button>
+  </div>
+</div>
+</main>
+<!-- =========================
+     FOOTER
+========================= -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <p>&copy; 2025 Este Essaouira Sports Club. Tous droits réservés.</p>
+    <p>
+      Contact : 
+      <a href="mailto:info@esteclub.com">info@esteclub.com</a> | 
+      <a href="https://instagram.com/club_sportifeste" target="_blank">Instagram</a> | 
+      <a href="https://wa.me/212781467073">whatsapp</a>
+    </p>
+    <p>Suivez-nous pour rester informé de nos activités et événements sportifs !</p>
+  </div>
+</footer>
+
+
+<script>
+/* =========================
+   ENHANCED SLIDER JS
+   ========================= */
+const track = document.getElementById('event-track');
+const leftBtn = document.getElementById('slide-left');
+const rightBtn = document.getElementById('slide-right');
+const slider = document.getElementById('event-slider');
+
+let position = 0;
+let isAnimating = false;
+let autoSlideTimer;
+
+// Get card width including gap
+function getCardWidth() {
+  const card = track.querySelector('.event-card');
+  if (!card) return 320;
+  const style = window.getComputedStyle(track);
+  const gap = parseFloat(style.gap) || 20;
+  return card.offsetWidth + gap;
+}
+
+function updateSliderButtons() {
+  const maxScroll = track.scrollWidth - slider.offsetWidth;
+  leftBtn.style.display = position < 0 ? 'block' : 'none';
+  rightBtn.style.display = Math.abs(position) < maxScroll - 50 ? 'block' : 'none';
+}
+
+function slideToPosition(newPosition) {
+  if (isAnimating) return;
+  isAnimating = true;
+  
+  const cardWidth = getCardWidth();
+  const maxScroll = track.scrollWidth - slider.offsetWidth;
+  position = Math.max(-maxScroll, Math.min(newPosition, 0));
+  
+  track.style.transform = `translateX(${position}px)`;
+  
+  setTimeout(() => {
+    isAnimating = false;
+    updateSliderButtons();
+  }, 450);
+}
+
+leftBtn.onclick = () => {
+  const cardWidth = getCardWidth();
+  slideToPosition(position + cardWidth * 1.5);
+  resetAutoSlide();
+};
+
+rightBtn.onclick = () => {
+  const cardWidth = getCardWidth();
+  slideToPosition(position - cardWidth * 1.5);
+  resetAutoSlide();
+};
+
+// Auto slide functionality
+function autoSlide() {
+  const cardWidth = getCardWidth();
+  const maxScroll = track.scrollWidth - slider.offsetWidth;
+  
+  if (Math.abs(position) >= maxScroll - 50) {
+    slideToPosition(0);
+  } else {
+    slideToPosition(position - cardWidth);
+  }
+}
+
+function resetAutoSlide() {
+  clearInterval(autoSlideTimer);
+  autoSlideTimer = setInterval(autoSlide, 6000);
+}
+
+// Touch/Mouse drag support with inertia
+let isDragging = false;
+let startX = 0;
+let currentX = 0;
+let velocity = 0;
+let lastX = 0;
+let lastTime = 0;
+
+function dragStart(e) {
+  isDragging = true;
+  isAnimating = false;
+  clearInterval(autoSlideTimer);
+  
+  const xPos = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+  startX = xPos - currentX;
+  lastX = xPos;
+  lastTime = Date.now();
+  
+  track.style.transition = 'none';
+}
+
+function dragMove(e) {
+  if (!isDragging) return;
+  
+  const xPos = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+  currentX = xPos - startX;
+  
+  const maxScroll = track.scrollWidth - slider.offsetWidth;
+  currentX = Math.min(0, Math.max(currentX, -maxScroll));
+  
+  const now = Date.now();
+  const dt = Math.max(16, now - lastTime);
+  velocity = (xPos - lastX) / dt;
+  
+  lastX = xPos;
+  lastTime = now;
+  
+  track.style.transform = `translateX(${currentX}px)`;
+}
+
+function dragEnd() {
+  if (!isDragging) return;
+  isDragging = false;
+  
+  track.style.transition = 'transform .45s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+  
+  // Inertia scrolling
+  if (Math.abs(velocity) > 0.5) {
+    const cardWidth = getCardWidth();
+    const inertiaDistance = velocity * 100;
+    position = currentX + inertiaDistance;
+    
+    const maxScroll = track.scrollWidth - slider.offsetWidth;
+    position = Math.max(-maxScroll, Math.min(position, 0));
+  } else {
+    position = currentX;
+  }
+  
+  track.style.transform = `translateX(${position}px)`;
+  currentX = position;
+  
+  setTimeout(() => {
+    updateSliderButtons();
+    resetAutoSlide();
+  }, 450);
+}
+
+// Event listeners
+track.addEventListener('mousedown', dragStart);
+document.addEventListener('mousemove', dragMove);
+document.addEventListener('mouseup', dragEnd);
+track.addEventListener('mouseleave', dragEnd);
+
+track.addEventListener('touchstart', dragStart);
+document.addEventListener('touchmove', dragMove, { passive: true });
+document.addEventListener('touchend', dragEnd);
+
+// Prevent text selection during drag
+track.addEventListener('selectstart', (e) => {
+  if (isDragging) e.preventDefault();
+});
+
+updateSliderButtons();
+resetAutoSlide();
+
+// Handle window resize
+window.addEventListener('resize', () => {
+  updateSliderButtons();
+});
+
+/* =========================
+   MODALS JS
+   ========================= */
+const modals = document.querySelectorAll('.modal');
+
+document.querySelectorAll('.open-modal').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const targetId = btn.dataset.target;
+    const modal = document.getElementById(targetId);
+    if (modal) {
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+  });
+});
+
+document.querySelectorAll('.close-modal').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.closest('.modal').style.display = 'none';
+    document.body.style.overflow = '';
+  });
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    modals.forEach(m => {
+      m.style.display = 'none';
+    });
+    document.body.style.overflow = '';
+  }
+});
+
+modals.forEach(m => {
+  m.addEventListener('click', (e) => {
+    if (e.target === m) {
+      m.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
+});
+
+/* =========================
+   AUTOMATIC PAST EVENT MARKING
+   ========================= */
+function markPastEvents() {
+  const today = new Date();
+  document.querySelectorAll('.event-card').forEach(card => {
+    const eventDate = new Date(card.dataset.date);
+    eventDate.setDate(eventDate.getDate() + 1);
+    
+    if (today >= eventDate) {
+      if (!card.querySelector('.status')) {
+        const status = document.createElement('div');
+        status.className = 'status';
+        status.innerText = 'Ended';
+        card.appendChild(status);
+      }
+    }
+  });
+}
+
+markPastEvents();
+setInterval(markPastEvents, 60 * 1000);
+
+/* =========================
+   SCROLL ANIMATIONS
+   ========================= */
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, observerOptions);
+
+// Observe reservation sections
+document.querySelectorAll('.reserve, .reserve-status').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'all 0.6s ease-out';
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
+
