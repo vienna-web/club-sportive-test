@@ -206,7 +206,7 @@ p {
 }
 
 .event-card {
-  min-width: calc(100% - 0px);
+  min-width: calc(90% - 14px);
   flex-direction: column;
   align-items: flex-start;
   background: var(--card-bg);
@@ -848,9 +848,9 @@ function dragEnd() {
   
   track.style.transition = 'transform 0.4s ease';
   
-  // Calculate snap position to nearest card
-  const sliderWidth = slider.offsetWidth;
-  const snapPosition = -Math.round(Math.abs(currentX) / sliderWidth) * sliderWidth;
+  // Calculate snap position - each card is 90% of slider width
+  const cardSnapWidth = slider.offsetWidth * 0.9;
+  const snapPosition = -Math.round(Math.abs(currentX) / cardSnapWidth) * cardSnapWidth;
   
   const maxScroll = track.scrollWidth - slider.offsetWidth;
   currentX = Math.max(-maxScroll, Math.min(snapPosition, 0));
