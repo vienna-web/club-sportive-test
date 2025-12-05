@@ -198,10 +198,15 @@ p {
   transition: transform 0.4s ease;
   padding: 0;
   scroll-snap-type: x mandatory;
+  cursor: grab;
+}
+
+#event-track:active {
+  cursor: grabbing;
 }
 
 .event-card {
-  min-width: calc(100% - 14px);
+  min-width: calc(100% - 0px);
   flex-direction: column;
   align-items: flex-start;
   background: var(--card-bg);
@@ -212,6 +217,7 @@ p {
   overflow: hidden;
   scroll-snap-align: start;
   scroll-snap-stop: always;
+  user-select: none;
 }
 
 .event-card img {
@@ -812,7 +818,6 @@ const slider = document.getElementById('event-slider');
 let isDragging = false;
 let startX = 0;
 let currentX = 0;
-let velocity = 0;
 let lastX = 0;
 let lastTime = 0;
 
@@ -834,13 +839,6 @@ function dragMove(e) {
   const maxScroll = track.scrollWidth - slider.offsetWidth;
   currentX = Math.min(0, Math.max(currentX, -maxScroll));
   
-  const now = Date.now();
-  const dt = Math.max(16, now - lastTime);
-  velocity = (xPos - lastX) / dt;
-  
-  lastX = xPos;
-  lastTime = now;
-  
   track.style.transform = `translateX(${currentX}px)`;
 }
 
@@ -851,8 +849,8 @@ function dragEnd() {
   track.style.transition = 'transform 0.4s ease';
   
   // Calculate snap position to nearest card
-  const cardWidth = track.querySelector('.event-card').offsetWidth + 14;
-  const snapPosition = -Math.round(Math.abs(currentX) / cardWidth) * cardWidth;
+  const sliderWidth = slider.offsetWidth;
+  const snapPosition = -Math.round(Math.abs(currentX) / sliderWidth) * sliderWidth;
   
   const maxScroll = track.scrollWidth - slider.offsetWidth;
   currentX = Math.max(-maxScroll, Math.min(snapPosition, 0));
