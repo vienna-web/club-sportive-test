@@ -195,12 +195,13 @@ p {
 #event-track {
   display: flex;
   gap: 14px;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s ease;
   padding: 0;
+  scroll-snap-type: x mandatory;
 }
 
 .event-card {
-  min-width: 270px;
+  min-width: calc(100% - 14px);
   flex-direction: column;
   align-items: flex-start;
   background: var(--card-bg);
@@ -209,6 +210,8 @@ p {
   padding: 10px;
   position: relative;
   overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .event-card img {
@@ -275,48 +278,6 @@ p {
   background: var(--orange);
   text-transform: uppercase;
 }
-
-.slider-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--blue);
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  z-index: 10;
-  transition: opacity 0.15s ease;
-  font-weight: bold;
-}
-
-.slider-btn:hover {
-  opacity: 0.8;
-}
-
-.slider-btn:active {
-  opacity: 0.7;
-}
-
-#slide-left {
-  left: 10px;
-}
-
-#slide-right {
-  right: 10px;
-}
-
-@media(max-width: 768px) {
-  .slider-btn {
-    display: none;
-  }
-  .event-card {
-    min-width: 280px;
-  }
-}
-
 
 /* =========================
    AI WEBSITE LINK SECTION
@@ -729,9 +690,6 @@ p {
 
 
 
-  <!-- Slider Buttons -->
-  <button id="slide-left" class="slider-btn">❮</button>
-  <button id="slide-right" class="slider-btn">❯</button>
 </div>
 
 <!-- =========================
@@ -849,75 +807,8 @@ document.addEventListener('keydown', (e) => {
    ENHANCED SLIDER JS
    ========================= */
 const track = document.getElementById('event-track');
-const leftBtn = document.getElementById('slide-left');
-const rightBtn = document.getElementById('slide-right');
 const slider = document.getElementById('event-slider');
 
-let position = 0;
-let isAnimating = false;
-let autoSlideTimer;
-
-// Get card width including gap
-function getCardWidth() {
-  const card = track.querySelector('.event-card');
-  if (!card) return 320;
-  const style = window.getComputedStyle(track);
-  const gap = parseFloat(style.gap) || 20;
-  return card.offsetWidth + gap;
-}
-
-function updateSliderButtons() {
-  const maxScroll = track.scrollWidth - slider.offsetWidth;
-  leftBtn.style.display = position < 0 ? 'block' : 'none';
-  rightBtn.style.display = Math.abs(position) < maxScroll - 50 ? 'block' : 'none';
-}
-
-function slideToPosition(newPosition) {
-  if (isAnimating) return;
-  isAnimating = true;
-  
-  const cardWidth = getCardWidth();
-  const maxScroll = track.scrollWidth - slider.offsetWidth;
-  position = Math.max(-maxScroll, Math.min(newPosition, 0));
-  
-  track.style.transform = `translateX(${position}px)`;
-  
-  setTimeout(() => {
-    isAnimating = false;
-    updateSliderButtons();
-  }, 450);
-}
-
-leftBtn.onclick = () => {
-  const cardWidth = getCardWidth();
-  slideToPosition(position + cardWidth * 1.5);
-  resetAutoSlide();
-};
-
-rightBtn.onclick = () => {
-  const cardWidth = getCardWidth();
-  slideToPosition(position - cardWidth * 1.5);
-  resetAutoSlide();
-};
-
-// Auto slide functionality
-function autoSlide() {
-  const cardWidth = getCardWidth();
-  const maxScroll = track.scrollWidth - slider.offsetWidth;
-  
-  if (Math.abs(position) >= maxScroll - 50) {
-    slideToPosition(0);
-  } else {
-    slideToPosition(position - cardWidth);
-  }
-}
-
-function resetAutoSlide() {
-  clearInterval(autoSlideTimer);
-  autoSlideTimer = setInterval(autoSlide, 6000);
-}
-
-// Touch/Mouse drag support with inertia
 let isDragging = false;
 let startX = 0;
 let currentX = 0;
@@ -927,14 +818,10 @@ let lastTime = 0;
 
 function dragStart(e) {
   isDragging = true;
-  isAnimating = false;
-  clearInterval(autoSlideTimer);
-  
   const xPos = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
   startX = xPos - currentX;
   lastX = xPos;
   lastTime = Date.now();
-  
   track.style.transition = 'none';
 }
 
@@ -961,27 +848,16 @@ function dragEnd() {
   if (!isDragging) return;
   isDragging = false;
   
-  track.style.transition = 'transform .45s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+  track.style.transition = 'transform 0.4s ease';
   
-  // Inertia scrolling
-  if (Math.abs(velocity) > 0.5) {
-    const cardWidth = getCardWidth();
-    const inertiaDistance = velocity * 100;
-    position = currentX + inertiaDistance;
-    
-    const maxScroll = track.scrollWidth - slider.offsetWidth;
-    position = Math.max(-maxScroll, Math.min(position, 0));
-  } else {
-    position = currentX;
-  }
+  // Calculate snap position to nearest card
+  const cardWidth = track.querySelector('.event-card').offsetWidth + 14;
+  const snapPosition = -Math.round(Math.abs(currentX) / cardWidth) * cardWidth;
   
-  track.style.transform = `translateX(${position}px)`;
-  currentX = position;
+  const maxScroll = track.scrollWidth - slider.offsetWidth;
+  currentX = Math.max(-maxScroll, Math.min(snapPosition, 0));
   
-  setTimeout(() => {
-    updateSliderButtons();
-    resetAutoSlide();
-  }, 450);
+  track.style.transform = `translateX(${currentX}px)`;
 }
 
 // Event listeners
@@ -997,14 +873,6 @@ document.addEventListener('touchend', dragEnd);
 // Prevent text selection during drag
 track.addEventListener('selectstart', (e) => {
   if (isDragging) e.preventDefault();
-});
-
-updateSliderButtons();
-resetAutoSlide();
-
-// Handle window resize
-window.addEventListener('resize', () => {
-  updateSliderButtons();
 });
 
 /* =========================
