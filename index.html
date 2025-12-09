@@ -556,99 +556,68 @@ p {
 }
 
 
-/* Body styling */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f7f8;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-}
-
-/* Form container */
-form#studentForm {
+/* Container only */
+.student-form-container {
   background-color: #fff;
-  padding: 30px 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  width: 100%;
+  margin: 20px auto; /* centers within parent container */
+  font-family: Arial, sans-serif;
 }
 
-/* Form heading */
-h2 {
+/* Heading inside container */
+.student-form-container h2 {
   text-align: center;
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
-/* Input fields */
-form#studentForm input {
-  padding: 12px 15px;
+/* Inputs inside container */
+.student-form-container input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 6px;
+  font-size: 15px;
   transition: all 0.3s ease;
 }
 
-/* Input focus effect */
-form#studentForm input:focus {
+/* Focus effect */
+.student-form-container input:focus {
   border-color: #4CAF50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  box-shadow: 0 0 5px rgba(76,175,80,0.5);
   outline: none;
 }
 
-/* Submit button */
-form#studentForm button {
-  padding: 12px 15px;
+/* Button */
+.student-form-container button {
+  width: 100%;
+  padding: 12px;
   background-color: #4CAF50;
   color: white;
-  font-size: 16px;
   font-weight: bold;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 16px;
   transition: background-color 0.3s ease;
 }
 
-/* Button hover effect */
-form#studentForm button:hover {
+/* Button hover */
+.student-form-container button:hover {
   background-color: #45a049;
 }
 
-/* Submission message */
-#msg {
+/* Message text */
+.student-form-container #msg {
   text-align: center;
   font-weight: bold;
   margin-top: 10px;
   color: #333;
-}
-
-/* Responsive for mobile */
-@media (max-width: 480px) {
-  form#studentForm {
-    padding: 20px;
-  }
-  form#studentForm input,
-  form#studentForm button {
-    font-size: 14px;
-    padding: 10px;
-  }
-}
-
-@media(max-width:768px) {
-  .member-card {
-    flex-direction: column;
-    text-align: center;
-  }
-  .slider-btn {
-    display: none;
-  }
 }
 
 /* =========================
@@ -898,39 +867,16 @@ Don’t miss it… This is YOUR day!🏅.</p>
 </div>
 
 
-<form id="studentForm">
-  <input type="text" id="name" placeholder="Student Name" required>
-  <input type="text" id="class" placeholder="Class" required>
-  <input type="text" id="sport" placeholder="Sport" required>
-  <button type="submit">Send</button>
-</form>
-
-<p id="msg"></p>
-
-<script>
-document.getElementById("studentForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  fetch("https://script.google.com/macros/s/AKfycbyBAySN8ONbI6YMlXHrWcyHb8y09ZgXWzQEByuiLkQk_2BsTvLPFo4cMz7zMAcsnIBU5A/exec", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: document.getElementById("name").value,
-      class: document.getElementById("class").value,
-      sport: document.getElementById("sport").value
-    }),
-  })
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("msg").innerText = "Submitted successfully!";
-    document.getElementById("studentForm").reset();
-  })
-  .catch(err => {
-    document.getElementById("msg").innerText = "Submission failed!";
-  });
-});
-</script>
-
+<div class="student-form-container">
+  <h2>Student Registration</h2>
+  <form id="studentForm">
+    <input type="text" id="name" placeholder="Student Name" required>
+    <input type="text" id="class" placeholder="Class" required>
+    <input type="text" id="sport" placeholder="Sport" required>
+    <button type="submit">Send</button>
+  </form>
+  <p id="msg"></p>
+</div>
 
 <!-- =========================
      FOOTER
@@ -1168,6 +1114,37 @@ document.querySelectorAll('.reserve, .reserve-status').forEach(el => {
   el.style.transition = 'all 0.6s ease-out';
   observer.observe(el);
 });
+
+
+document.getElementById("studentForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const url ="https://script.google.com/macros/s/AKfycbxxcDBeyGJQfE3BiM5R4r-ARM2CkF2u7FF8ppG2cArlOyVTMcJgtamVVNumYZc5PhY_1g/exec"; // Replace with your Google Script URL
+
+  fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: document.getElementById("name").value,
+      class: document.getElementById("class").value,
+      sport: document.getElementById("sport").value
+    }),
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.status === "success") {
+      document.getElementById("msg").innerText = "Submitted successfully!";
+      document.getElementById("studentForm").reset();
+    } else {
+      document.getElementById("msg").innerText = "Submission failed: " + data.message;
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("msg").innerText = "Submission failed!";
+  });
+});
+
 </script>
 
 </body>
