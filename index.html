@@ -312,14 +312,45 @@ p {
 }
 
 .ai-site-box {
-  background: var(--card-bg);
-  border-radius: 10px;
   padding: 30px 24px;
   max-width: 650px;
   width: 100%;
   text-align: center;
-  box-shadow: var(--card-shadow);
-  border: 1px solid rgba(11,99,167,0.1);
+  background-image: url('analy.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ai-site-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1;
+}
+
+.ai-site-box > * {
+  position: relative;
+  z-index: 2;
+  color: white;
+}
+
+.ai-site-box h2 {
+  color: white;
+  margin-bottom: 8px;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.ai-site-box p {
+  color: white;
+  font-size: 14px;
+  margin-bottom: 20px;
+  line-height: 1.5;
 }
 
 .ai-site-logos {
@@ -524,6 +555,92 @@ p {
   }
 }
 
+
+/* Body styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Form container */
+form#studentForm {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Form heading */
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Input fields */
+form#studentForm input {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+/* Input focus effect */
+form#studentForm input:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  outline: none;
+}
+
+/* Submit button */
+form#studentForm button {
+  padding: 12px 15px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+form#studentForm button:hover {
+  background-color: #45a049;
+}
+
+/* Submission message */
+#msg {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #333;
+}
+
+/* Responsive for mobile */
+@media (max-width: 480px) {
+  form#studentForm {
+    padding: 20px;
+  }
+  form#studentForm input,
+  form#studentForm button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
 @media(max-width:768px) {
   .member-card {
     flex-direction: column;
@@ -679,8 +796,18 @@ p {
   </div>
 <div id="modal1" class="modal">
   <div class="modal-content">
-    <h3>pas d'événement  — Détails</h3>
-    <p>La description de l'événement 1 sera ici.</p>
+    <h3>RUNNING DAY  — Détails</h3>
+    <p>🌟Are you ready for a day full of energy, fun, and good vibes?
+This Saturday 22, we’re meeting at Barakat Mohammed and heading straight to Essaouira Beach for the ultimate { RUNNING DAY! }
+
+✨ Expect:
+• Beach run
+• Fun surprise
+• Great people
+• A perfect chance to enjoy, laugh, and make new memories
+
+Whether you’re coming with friends or solo — you’re guaranteed to have an amazing time.
+Don’t miss it… This is YOUR day!🏅.</p>
     <button class="close-modal">Fermer</button>
   </div>
 </div>
@@ -769,6 +896,41 @@ p {
     <p>Disponibilité prévue : À déterminer</p>
   </div>
 </div>
+
+
+<form id="studentForm">
+  <input type="text" id="name" placeholder="Student Name" required>
+  <input type="text" id="class" placeholder="Class" required>
+  <input type="text" id="sport" placeholder="Sport" required>
+  <button type="submit">Send</button>
+</form>
+
+<p id="msg"></p>
+
+<script>
+document.getElementById("studentForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  fetch("https://script.google.com/macros/s/AKfycbyBAySN8ONbI6YMlXHrWcyHb8y09ZgXWzQEByuiLkQk_2BsTvLPFo4cMz7zMAcsnIBU5A/exec", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: document.getElementById("name").value,
+      class: document.getElementById("class").value,
+      sport: document.getElementById("sport").value
+    }),
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("msg").innerText = "Submitted successfully!";
+    document.getElementById("studentForm").reset();
+  })
+  .catch(err => {
+    document.getElementById("msg").innerText = "Submission failed!";
+  });
+});
+</script>
+
 
 <!-- =========================
      FOOTER
